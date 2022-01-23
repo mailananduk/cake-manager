@@ -1,3 +1,21 @@
+2) How to use:
+start application using
+mvn spring-boot:run
+From Rest client like postman
+* GET: to get all cakes
+http://localhost:8282/cakes/
+* GET: get cake for given id
+http://localhost:8080/cakes/2
+* POST: create new cake
+Request body
+{
+    "name": "my cake 1",
+    "description": "my cake desc 1",
+    "imageUrl": "my cake url 1"
+}
+http://localhost:8080/cakes/
+
+1) Update teck stack
 =======================================
 Cake Manager Micro Service (fictitious)
 =======================================
