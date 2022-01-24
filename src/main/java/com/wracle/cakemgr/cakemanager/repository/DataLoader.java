@@ -2,10 +2,12 @@ package com.wracle.cakemgr.cakemanager.repository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wracle.cakemgr.cakemanager.repository.dao.CakeDao;
+import com.wracle.cakemgr.cakemanager.repository.dao.UserDao;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -19,6 +21,10 @@ public class DataLoader implements ApplicationRunner {
 
     @Autowired
     private CakeRepository cakeRepository;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -27,6 +33,10 @@ public class DataLoader implements ApplicationRunner {
         cakeDao.setDescription("my cake desc 1");
         cakeDao.setImageUrl("my cake url 1");
         cakeRepository.save(cakeDao);*/
+        UserDao userDao = new UserDao();
+        userDao.setEmailId("anand@anand.com");
+        userDao.setEncryptedPassword(bCryptPasswordEncoder.encode("admin"));
+        userRepository.save(userDao);
         loadDateFromGitJson();
     }
 

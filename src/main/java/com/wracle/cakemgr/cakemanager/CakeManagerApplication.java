@@ -2,12 +2,18 @@ package com.wracle.cakemgr.cakemanager;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication
 public class CakeManagerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CakeManagerApplication.class, args);
+		SpringApplication. run(CakeManagerApplication.class, args);
 	}
 
+	@Bean
+	public BCryptPasswordEncoder bCryptPasswordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 }

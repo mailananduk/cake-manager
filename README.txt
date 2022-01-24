@@ -1,3 +1,13 @@
+4) Add security
+Now accessing the below endpoints will throw 403 Forbidden
+We need to call login endpoint first. Successful login wil return Authorization in response header.
+Use that Authorization in request header, of any other endpoints, to make it work securly.
+* POST: http://localhost:8282/users/login
+Request body
+{
+    "emailId": "anand@anand.com",
+    "password": "admin"
+}
 3) Add Service and unit test
 2) How to use:
 start application using
