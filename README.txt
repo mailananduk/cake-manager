@@ -1,3 +1,4 @@
+5) Add Docker file
 4) Add security
 Now accessing the below endpoints will throw 403 Forbidden
 We need to call login endpoint first. Successful login wil return Authorization in response header.
@@ -27,7 +28,7 @@ Request body
 http://localhost:8282/cakes/
 
 1) Update teck stack
-=======================================
+========================================================================================================================
 Cake Manager Micro Service (fictitious)
 =======================================
 
