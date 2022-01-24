@@ -1,12 +1,10 @@
-package com.wracle.cakemgr.cakemanagerpoc.exception.beans;
+package com.wracle.cakemgr.cakemanager.exception.beans;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor

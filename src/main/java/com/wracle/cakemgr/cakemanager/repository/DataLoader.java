@@ -1,8 +1,7 @@
-package com.wracle.cakemgr.cakemanagerpoc.repository;
+package com.wracle.cakemgr.cakemanager.repository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import com.wracle.cakemgr.cakemanagerpoc.repository.dao.CakeDao;
+import com.wracle.cakemgr.cakemanager.repository.dao.CakeDao;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -10,7 +9,6 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;

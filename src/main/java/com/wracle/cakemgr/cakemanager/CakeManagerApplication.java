@@ -1,4 +1,4 @@
-package com.wracle.cakemgr.cakemanagerpoc;
+package com.wracle.cakemgr.cakemanager;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

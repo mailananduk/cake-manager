@@ -1,9 +1,6 @@
-package com.wracle.cakemgr.cakemanagerpoc.ui.model.response;
+package com.wracle.cakemgr.cakemanager.ui.model.response;
 
 import lombok.Data;
-import org.springframework.stereotype.Component;
-
-import javax.persistence.Column;
 
 @Data
 public class CakeRest {

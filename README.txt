@@ -1,3 +1,4 @@
+3) Add Service and unit test
 2) How to use:
 start application using
 mvn spring-boot:run
@@ -5,7 +6,7 @@ From Rest client like postman
 * GET: to get all cakes
 http://localhost:8282/cakes/
 * GET: get cake for given id
-http://localhost:8080/cakes/2
+http://localhost:8282/cakes/2
 * POST: create new cake
 Request body
 {
@@ -13,7 +14,7 @@ Request body
     "description": "my cake desc 1",
     "imageUrl": "my cake url 1"
 }
-http://localhost:8080/cakes/
+http://localhost:8282/cakes/
 
 1) Update teck stack
 =======================================

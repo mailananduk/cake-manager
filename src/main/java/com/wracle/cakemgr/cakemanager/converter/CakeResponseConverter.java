@@ -1,9 +1,8 @@
-package com.wracle.cakemgr.cakemanagerpoc.ui.converter;
+package com.wracle.cakemgr.cakemanager.converter;
 
-import com.wracle.cakemgr.cakemanagerpoc.repository.dao.CakeDao;
-import com.wracle.cakemgr.cakemanagerpoc.ui.model.response.CakeRest;
+import com.wracle.cakemgr.cakemanager.repository.dao.CakeDao;
+import com.wracle.cakemgr.cakemanager.ui.model.response.CakeRest;
 import org.springframework.beans.BeanUtils;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;

@@ -1,6 +1,6 @@
-package com.wracle.cakemgr.cakemanagerpoc.exception;
+package com.wracle.cakemgr.cakemanager.exception;
 
-import com.wracle.cakemgr.cakemanagerpoc.exception.beans.ServiceError;
+import com.wracle.cakemgr.cakemanager.exception.beans.ServiceError;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

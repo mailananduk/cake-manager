@@ -1,4 +1,4 @@
-package com.wracle.cakemgr.cakemanagerpoc.repository.dao;
+package com.wracle.cakemgr.cakemanager.repository.dao;
 
 import lombok.Data;
 

@@ -1,4 +1,4 @@
-package com.wracle.cakemgr.cakemanagerpoc;
+package com.wracle.cakemgr.cakemanager;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
