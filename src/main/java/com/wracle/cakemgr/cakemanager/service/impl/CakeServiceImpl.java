@@ -1,16 +1,13 @@
 package com.wracle.cakemgr.cakemanager.service.impl;
 
-import com.wracle.cakemgr.cakemanager.exception.BusinessException;
-import com.wracle.cakemgr.cakemanager.repository.CakeRepository;
-import com.wracle.cakemgr.cakemanager.repository.dao.CakeDao;
-import com.wracle.cakemgr.cakemanager.service.CakeService;
 import com.wracle.cakemgr.cakemanager.converter.CakeRequestConverter;
 import com.wracle.cakemgr.cakemanager.converter.CakeResponseConverter;
-import com.wracle.cakemgr.cakemanager.ui.model.request.CakeRequestModel;
-import com.wracle.cakemgr.cakemanager.ui.model.response.CakeRest;
+import com.wracle.cakemgr.cakemanager.exception.BusinessException;
+import com.wracle.cakemgr.cakemanager.io.entity.CakeEntity;
+import com.wracle.cakemgr.cakemanager.io.repository.CakeRepository;
+import com.wracle.cakemgr.cakemanager.service.CakeService;
+import com.wracle.cakemgr.cakemanager.shared.dto.CakeDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,27 +17,30 @@ import java.util.Optional;
 public class CakeServiceImpl implements CakeService {
     @Autowired
     private CakeRepository cakeRepository;
+    @Autowired
+    CakeResponseConverter cakeResponseConverter;
 
     @Override
-    public List<CakeRest> getAllCakes() {
-        Iterable<CakeDao> cakeDaos = cakeRepository.findAll();
-        return CakeResponseConverter.convertCakeResponse(cakeDaos);
+    public List<CakeDto> getAllCakes() {
+        Iterable<CakeEntity> cakeEntities = cakeRepository.findAll();
+        return cakeResponseConverter.convertCakeResponse(cakeEntities);
     }
 
     @Override
-    public CakeRest getCake(Integer cakeId) throws BusinessException {
-        Optional<CakeDao> cakeDaoOptional = cakeRepository.findById(cakeId);
-        if(cakeDaoOptional.isPresent()) {
-            return CakeResponseConverter.convertCakeResponse(cakeDaoOptional.get());
+    public CakeDto getCake(Integer cakeId) throws BusinessException {
+        Optional<CakeEntity> cakeEntityOptional = cakeRepository.findById(cakeId);
+        if(cakeEntityOptional.isPresent()) {
+            return cakeResponseConverter.convertCakeResponse(cakeEntityOptional.get());
         }
         throw new BusinessException("Cake Id Not found");
     }
 
     @Override
-    public ResponseEntity<CakeRest> addCake(CakeRequestModel cakeRequestModel) {
-        CakeDao cakeDao = CakeRequestConverter.convertCakeRequest(cakeRequestModel);
-        CakeDao savedCakeDao = cakeRepository.save(cakeDao);
-        CakeRest cakeRest = CakeResponseConverter.convertCakeResponse(savedCakeDao);
-        return new ResponseEntity(cakeRest, HttpStatus.CREATED);
+    public CakeDto addCake(CakeDto cakeDto) {
+
+        CakeEntity cakeEntity = CakeRequestConverter.convertCakeRequest(cakeDto);
+
+        CakeEntity savedCakeEntity = cakeRepository.save(cakeEntity);
+        return cakeResponseConverter.convertCakeResponse(savedCakeEntity);
     }
 }

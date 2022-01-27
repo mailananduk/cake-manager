@@ -1,9 +1,15 @@
 package com.wracle.cakemgr.cakemanager.converter;
 
-import com.wracle.cakemgr.cakemanager.repository.dao.CakeDao;
-import com.wracle.cakemgr.cakemanager.ui.model.response.CakeRest;
+import com.wracle.cakemgr.cakemanager.io.entity.CakeEntity;
+import com.wracle.cakemgr.cakemanager.shared.dto.CakeDto;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.modelmapper.ModelMapper;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,33 +17,55 @@ import java.util.stream.Stream;
 
 public class CakeResponseConverterTest {
 
+    @InjectMocks
+    CakeResponseConverter cakeResponseConverter;
+
+    @Mock
+    ModelMapper modelMapper;
+
+    @BeforeEach
+    public void setup() {
+        MockitoAnnotations.openMocks(this);
+    }
+
     @Test
     public void testConvertCakeResponse() {
-        CakeDao cakeDao = buildCakeDao();
-        CakeRest responseCakeRest = CakeResponseConverter.convertCakeResponse(cakeDao);
+        CakeEntity cakeEntity = buildCakeEntity();
+        Mockito.when(modelMapper.map(cakeEntity, CakeDto.class)).thenReturn(buildCakeDto());
+        CakeDto responseCakeRestCakeDto = cakeResponseConverter.convertCakeResponse(cakeEntity);
 
-        Assertions.assertNotNull(responseCakeRest);
-        Assertions.assertEquals(1, responseCakeRest.getId());
-        Assertions.assertEquals("Lemon Cake", responseCakeRest.getName());
-        Assertions.assertEquals("Taste good", responseCakeRest.getDescription());
-        Assertions.assertEquals("www.mycake.com/img1", responseCakeRest.getImageUrl());
+        Assertions.assertNotNull(responseCakeRestCakeDto);
+        Assertions.assertEquals(1, responseCakeRestCakeDto.getId());
+        Assertions.assertEquals("Lemon Cake", responseCakeRestCakeDto.getName());
+        Assertions.assertEquals("Taste good", responseCakeRestCakeDto.getDescription());
+        Assertions.assertEquals("www.mycake.com/img1", responseCakeRestCakeDto.getImageUrl());
     }
 
     @Test
     public void testConvertCakeResponseForRequestList() {
-        Iterable<CakeDao> cakeDaoLst = Stream.of(buildCakeDao()).collect(Collectors.toSet());
-        List<CakeRest> responseCakeRestList = CakeResponseConverter.convertCakeResponse(cakeDaoLst);
+        Iterable<CakeEntity> cakeEntityLst = Stream.of(buildCakeEntity()).collect(Collectors.toSet());
+        List<CakeDto> responseCakeDtoList = cakeResponseConverter.convertCakeResponse(cakeEntityLst);
 
-        Assertions.assertNotNull(responseCakeRestList);
-        Assertions.assertEquals(1, responseCakeRestList.size());
+        Assertions.assertNotNull(responseCakeDtoList);
+        Assertions.assertEquals(1, responseCakeDtoList.size());
     }
 
-    private CakeDao buildCakeDao() {
-        CakeDao cakeDao = new CakeDao();
-        cakeDao.setId(1);
-        cakeDao.setName("Lemon Cake");
-        cakeDao.setDescription("Taste good");
-        cakeDao.setImageUrl("www.mycake.com/img1");
-        return cakeDao;
+    private CakeEntity buildCakeEntity() {
+        CakeEntity cakeEntity = new CakeEntity();
+        cakeEntity.setId(1);
+        cakeEntity.setName("Lemon Cake");
+        cakeEntity.setDescription("Taste good");
+        cakeEntity.setImageUrl("www.mycake.com/img1");
+        return cakeEntity;
     }
+
+    private CakeDto buildCakeDto() {
+        CakeDto cakeDto = new CakeDto();
+        cakeDto.setId(1);
+        cakeDto.setName("Lemon Cake");
+        cakeDto.setDescription("Taste good");
+        cakeDto.setImageUrl("www.mycake.com/img1");
+        return cakeDto;
+    }
+
 }

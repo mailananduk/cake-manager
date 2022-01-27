@@ -1,3 +1,4 @@
+6) Package structure updated and unit test and integration test added
 5) Add Docker file
 4) Add security
 Now accessing the below endpoints will throw 403 Forbidden

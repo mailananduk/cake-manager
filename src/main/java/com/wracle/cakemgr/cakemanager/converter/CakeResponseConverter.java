@@ -1,32 +1,28 @@
 package com.wracle.cakemgr.cakemanager.converter;
 
-import com.wracle.cakemgr.cakemanager.repository.dao.CakeDao;
-import com.wracle.cakemgr.cakemanager.ui.model.response.CakeRest;
-import org.springframework.beans.BeanUtils;
+import com.wracle.cakemgr.cakemanager.io.entity.CakeEntity;
+import com.wracle.cakemgr.cakemanager.shared.dto.CakeDto;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+@Component
 public class CakeResponseConverter {
 
-    private CakeResponseConverter() {
+    @Autowired
+    private ModelMapper modelMapper;
 
+    public CakeDto convertCakeResponse(CakeEntity cakeEntity) {
+        return modelMapper.map(cakeEntity, CakeDto.class);
     }
 
-    public static CakeRest convertCakeResponse(CakeDao cakeDao) {
-        CakeRest cakeRest = new CakeRest();
-        BeanUtils.copyProperties(cakeDao, cakeRest);
-        return cakeRest;
-    }
-
-    public static List<CakeRest> convertCakeResponse(Iterable<CakeDao> cakeDaoLst) {
-        return StreamSupport.stream(cakeDaoLst.spliterator(), false)
-                .map((cakeDao) -> {
-                    CakeRest cakeRest = new CakeRest();
-                    BeanUtils.copyProperties(cakeDao, cakeRest);
-                    return cakeRest;
-                })
+    public List<CakeDto> convertCakeResponse(Iterable<CakeEntity> cakeEntityLst) {
+        return StreamSupport.stream(cakeEntityLst.spliterator(), false)
+                .map(cakeEntity -> convertCakeResponse(cakeEntity))
                 .collect(Collectors.toList());
     }
 }

@@ -1,8 +1,10 @@
 package com.wracle.cakemgr.cakemanager.service.impl;
 
-import com.wracle.cakemgr.cakemanager.repository.UserRepository;
-import com.wracle.cakemgr.cakemanager.repository.dao.UserDao;
+import com.wracle.cakemgr.cakemanager.io.entity.UserEntity;
+import com.wracle.cakemgr.cakemanager.io.repository.UserRepository;
 import com.wracle.cakemgr.cakemanager.service.UserService;
+import com.wracle.cakemgr.cakemanager.shared.dto.UserDto;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,11 +26,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         //get user details from db
-        Optional<UserDao> userDaoOpt = userRepository.findByEmailId(email);
-        if (!userDaoOpt.isPresent()) throw new UsernameNotFoundException(email);
+        Optional<UserEntity> userEntityOpt = userRepository.findByEmailId(email);
+        if (!userEntityOpt.isPresent()) throw new UsernameNotFoundException(email);
 
-        UserDao userDao = userDaoOpt.get();
-        User user = new User(userDao.getEmailId(), userDao.getEncryptedPassword(), new ArrayList<>());
+        ModelMapper modelMapper = new ModelMapper();
+        UserDto userDto = modelMapper.map(userEntityOpt.get(), UserDto.class);
+        User user = new User(userDto.getEmailId(), userDto.getEncryptedPassword(), new ArrayList<>());
         return user;
     }
 }

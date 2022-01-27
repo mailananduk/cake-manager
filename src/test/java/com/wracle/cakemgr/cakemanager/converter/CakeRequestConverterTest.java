@@ -1,28 +1,28 @@
 package com.wracle.cakemgr.cakemanager.converter;
 
-import com.wracle.cakemgr.cakemanager.repository.dao.CakeDao;
-import com.wracle.cakemgr.cakemanager.ui.model.request.CakeRequestModel;
+import com.wracle.cakemgr.cakemanager.io.entity.CakeEntity;
+import com.wracle.cakemgr.cakemanager.shared.dto.CakeDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class CakeRequestConverterTest {
     @Test
-    public void testconvertCakeRequest() {
-        CakeRequestModel cakeRequestModel = buildCakeRequestModel();
-        CakeDao responseCakeDao = CakeRequestConverter.convertCakeRequest(cakeRequestModel);
+    public void testConvertCakeRequest() {
+        CakeDto cakeDto = buildCakeDto();
+        CakeEntity responseCakeEntity = CakeRequestConverter.convertCakeRequest(cakeDto);
 
-        Assertions.assertNotNull(responseCakeDao);
-        Assertions.assertEquals("Lemon Cake", responseCakeDao.getName());
-        Assertions.assertEquals("Taste good", responseCakeDao.getDescription());
-        Assertions.assertEquals("www.mycake.com/img1", responseCakeDao.getImageUrl());
+        Assertions.assertNotNull(responseCakeEntity);
+        Assertions.assertEquals("Lemon Cake", responseCakeEntity.getName());
+        Assertions.assertEquals("Taste good", responseCakeEntity.getDescription());
+        Assertions.assertEquals("www.mycake.com/img1", responseCakeEntity.getImageUrl());
     }
 
-    private CakeRequestModel buildCakeRequestModel() {
-        CakeRequestModel cakeRequestModel = new CakeRequestModel();
-        cakeRequestModel.setName("Lemon Cake");
-        cakeRequestModel.setDescription("Taste good");
-        cakeRequestModel.setImageUrl("www.mycake.com/img1");
-        return cakeRequestModel;
+    private CakeDto buildCakeDto() {
+        CakeDto cakeDto = new CakeDto();
+        cakeDto.setName("Lemon Cake");
+        cakeDto.setDescription("Taste good");
+        cakeDto.setImageUrl("www.mycake.com/img1");
+        return cakeDto;
     }
 
 

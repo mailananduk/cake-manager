@@ -1,12 +1,16 @@
-package com.wracle.cakemgr.cakemanager.repository.dao;
+package com.wracle.cakemgr.cakemanager.io.entity;
 
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
-@Data
 @Entity
-public class UserDao {
+@Data
+@Table(name = "users")
+public class UserEntity implements Serializable {
+
+    private static final long serialVersionUID = 3916574419850680650L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,5 +22,5 @@ public class UserDao {
 
     @Column(name = "ENCRYPTEDPASSWORD", unique = false, nullable = false, length = 100)
     private String encryptedPassword;
-
 }
+

@@ -1,8 +1,10 @@
-package com.wracle.cakemgr.cakemanager.repository;
+package com.wracle.cakemgr.cakemanager.io;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wracle.cakemgr.cakemanager.repository.dao.CakeDao;
-import com.wracle.cakemgr.cakemanager.repository.dao.UserDao;
+import com.wracle.cakemgr.cakemanager.io.entity.CakeEntity;
+import com.wracle.cakemgr.cakemanager.io.entity.UserEntity;
+import com.wracle.cakemgr.cakemanager.io.repository.CakeRepository;
+import com.wracle.cakemgr.cakemanager.io.repository.UserRepository;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -28,15 +30,10 @@ public class DataLoader implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        /*CakeDao cakeDao = new CakeDao();
-        cakeDao.setName("my cake 1");
-        cakeDao.setDescription("my cake desc 1");
-        cakeDao.setImageUrl("my cake url 1");
-        cakeRepository.save(cakeDao);*/
-        UserDao userDao = new UserDao();
-        userDao.setEmailId("anand@anand.com");
-        userDao.setEncryptedPassword(bCryptPasswordEncoder.encode("admin"));
-        userRepository.save(userDao);
+        UserEntity userEntity = new UserEntity();
+        userEntity.setEmailId("anand@anand.com");
+        userEntity.setEncryptedPassword(bCryptPasswordEncoder.encode("admin"));
+        userRepository.save(userEntity);
         loadDateFromGitJson();
     }
 
@@ -44,17 +41,17 @@ public class DataLoader implements ApplicationRunner {
         String cakeDataJsonUrl = "https://gist.githubusercontent.com/hart88/198f29ec5114a3ec3460/raw/8dd19a88f9b8d24c23d9960f3300d0c917a4f07c/cake.json";
         ObjectMapper mapper = new ObjectMapper();
         cakeToLoad[] cakeToLoadArr = mapper.readValue(new URL(cakeDataJsonUrl), cakeToLoad[].class);
-        List<CakeDao> cakeDaoLst = Arrays.stream(cakeToLoadArr)
+        List<CakeEntity> cakeEntityLst = Arrays.stream(cakeToLoadArr)
                 .map(cakeToLoad -> {
-                    CakeDao cakeDao = new CakeDao();
-                    cakeDao.setName(cakeToLoad.getTitle());
-                    cakeDao.setDescription(cakeToLoad.getDesc());
-                    cakeDao.setImageUrl(cakeToLoad.getImage());
-                    return cakeDao;
+                    CakeEntity cakeEntity = new CakeEntity();
+                    cakeEntity.setName(cakeToLoad.getTitle());
+                    cakeEntity.setDescription(cakeToLoad.getDesc());
+                    cakeEntity.setImageUrl(cakeToLoad.getImage());
+                    return cakeEntity;
                 })
                 .distinct()
                 .collect(Collectors.toList());
-        cakeDaoLst.stream().forEach(cakeDao -> cakeRepository.save(cakeDao) );
+        cakeEntityLst.stream().forEach(cakeEntity -> cakeRepository.save(cakeEntity) );
     }
 
     @Data

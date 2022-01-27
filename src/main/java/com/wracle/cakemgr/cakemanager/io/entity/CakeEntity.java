@@ -1,12 +1,16 @@
-package com.wracle.cakemgr.cakemanager.repository.dao;
+package com.wracle.cakemgr.cakemanager.io.entity;
 
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
-@Data
 @Entity
-public class CakeDao {
+@Data
+@Table(name = "cakes")
+public class CakeEntity implements Serializable {
+
+    private static final long serialVersionUID = -2459317720366335598L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

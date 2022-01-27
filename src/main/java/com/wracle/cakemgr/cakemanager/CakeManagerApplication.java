@@ -1,5 +1,6 @@
 package com.wracle.cakemgr.cakemanager;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -15,5 +16,10 @@ public class CakeManagerApplication {
 	@Bean
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
+	}
+
+	@Bean
+	public ModelMapper getModelMapper() {
+		return new ModelMapper();
 	}
 }

@@ -1,18 +1,19 @@
 package com.wracle.cakemgr.cakemanager.converter;
 
-import com.wracle.cakemgr.cakemanager.repository.dao.CakeDao;
-import com.wracle.cakemgr.cakemanager.ui.model.request.CakeRequestModel;
+import com.wracle.cakemgr.cakemanager.io.entity.CakeEntity;
+import com.wracle.cakemgr.cakemanager.shared.dto.CakeDto;
 import org.springframework.beans.BeanUtils;
 
 public class CakeRequestConverter {
+
     private CakeRequestConverter() {
 
     }
 
-    public static CakeDao convertCakeRequest(CakeRequestModel cakeRequestModel) {
-        CakeDao cakeDao = new CakeDao();
-        BeanUtils.copyProperties(cakeRequestModel, cakeDao);
-        return cakeDao;
+    public static CakeEntity convertCakeRequest(CakeDto cakeDto) {
+        CakeEntity cakeEntity = new CakeEntity();
+        BeanUtils.copyProperties(cakeDto, cakeEntity);
+        return cakeEntity;
     }
 
 }
