@@ -4,6 +4,8 @@ import com.wracle.cakemgr.cakemanager.service.CakeService;
 import com.wracle.cakemgr.cakemanager.shared.dto.CakeDto;
 import com.wracle.cakemgr.cakemanager.ui.model.request.CakeRequestModel;
 import com.wracle.cakemgr.cakemanager.ui.model.response.CakeRest;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +26,9 @@ public class CakeController {
     CakeService cakeService;
 
     @GetMapping("/")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="Authorization", value="${cakeController.authorizationHeader.description}", paramType="header")
+    })
     public List<CakeRest> getAllCakes() {
         List<CakeDto> cakeDtoLst = cakeService.getAllCakes();
         List<CakeRest> resultCakeRestLst = new ArrayList<>();
@@ -36,6 +41,9 @@ public class CakeController {
     }
 
     @GetMapping("/{cakeId}")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="Authorization", value="${cakeController.authorizationHeader.description}", paramType="header")
+    })
     public CakeRest getCake(@PathVariable Integer cakeId) throws Exception {
         CakeDto cakeDto = cakeService.getCake(cakeId);
         ModelMapper modelMapper = new ModelMapper();
@@ -43,6 +51,9 @@ public class CakeController {
     }
 
     @PostMapping("/")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="Authorization", value="${cakeController.authorizationHeader.description}", paramType="header")
+    })
     public ResponseEntity<CakeRest> addCake(@RequestBody CakeRequestModel cakeRequestModel) {
         ModelMapper modelMapper = new ModelMapper();
         CakeDto cakeDto = new CakeDto();

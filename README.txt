@@ -1,3 +1,5 @@
+8) Swagger added. This can be accessed from http://localhost:8282/swagger-ui/
+7) CI/CD added, Jenkinsfile
 6) Package structure updated and unit test and integration test added
 5) Add Docker file
 4) Add security
