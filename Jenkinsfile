@@ -1,8 +1,15 @@
 pipeline {
-    agent any
     environment {
-        PATH = "C:\\Program Files\\Git\\usr\\bin;C:\\Program Files\\Git\\bin;${env.PATH}"
+        JAVA_TOOL_OPTIONS = "-Duser.home=/home/jenkins"
     }
+    agent {
+        dockerfile {
+            label "docker"
+            args "-v /tmp/maven:/home/jenkins/.m2 -e MAVEN_CONFIG=/home/jenkins/.m2"
+        }
+    }
+
+
     stages {
         stage("Build") {
             steps {
