@@ -10,17 +10,24 @@ pipeline {
         }
     } */
 
-    agent {
-        docker {
-            image "maven:3.6.0-jdk-8"
-        }
-    }
+    agent  any
 
     stages {
         stage("Build") {
             steps {
+            //use sh for unix instead of bat
                 bat "mvn -version"
                 bat "mvn clean install"
+            }
+        }
+        stage("Test") {
+            steps {
+                bat "mvn test"
+            }
+            post {
+                always {
+                    junit "**/targer/surefire-reports/TEST-*xml"
+                }
             }
         }
     }
