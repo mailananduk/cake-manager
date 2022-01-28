@@ -1,3 +1,4 @@
+9) Logging enabled using 'lombok'
 8) Swagger added. This can be accessed from http://localhost:8282/swagger-ui/
 7) CI/CD added, Jenkinsfile
 6) Package structure updated and unit test and integration test added
